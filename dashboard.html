@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dashboard Deteksi Nyamuk (ML-Powered)</title>
+
+    <!-- Library Eksternal -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+
+    <!-- Tautan ke file CSS Anda -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body class="bg-gray-50">
+    <div id="toast-notification" class="fixed top-6 right-6 bg-purple-600 text-white px-4 py-3 rounded-lg shadow-lg opacity-0 transition-opacity duration-500 z-50">
+        🚨 Deteksi aktivitas nyamuk tinggi! Periksa area segera.
+    </div>
+
+    <!-- Header -->
+    <header class="bg-gray-800 header-image text-white relative border-b border-gray-700 mb-4">
+        <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative">
+
+            <!-- ===== PERUBAHAN DI SINI ===== -->
+            <div class="flex justify-between items-center">
+                <!-- Judul Halaman -->
+                <div>
+                    <h1 class="text-3xl font-bold text-white">Dashboard Deteksi Nyamuk</h1>
+                    <p class="mt-2 text-gray-300">Monitoring intensitas nyamuk dan kondisi lingkungan secara real-time</p>
+                </div>
+                <!-- Tombol Kembali -->
+                <div>
+                    <a href="/" class="inline-block px-6 py-2 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 transition duration-300">
+                        ← Kembali ke Beranda
+                    </a>
+                </div>
+            </div>
+            <!-- ===== AKHIR PERUBAHAN ===== -->
+
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Kartu Statistik -->
+        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 mb-8">
+            <div class="stat-card bg-white rounded-xl shadow p-6 border border-gray-200">
+                <h3 class="text-sm font-medium text-gray-500">Total Deteksi Hari Ini (ML)</h3>
+                <p class="text-3xl font-bold text-gray-900 mt-2" id="todayCount">-</p>
+            </div>
+            <div class="stat-card bg-white rounded-xl shadow p-6 border border-gray-200">
+                <h3 class="text-sm font-medium text-gray-500">Suhu Terkini</h3>
+                <p class="text-3xl font-bold text-gray-900 mt-2" id="currentTemp">-°C</p>
+            </div>
+            <div class="stat-card bg-white rounded-xl shadow p-6 border border-gray-200">
+                <h3 class="text-sm font-medium text-gray-500">Kelembapan Terkini</h3>
+                <p class="text-3xl font-bold text-gray-900 mt-2" id="currentHumidity">-%</p>
+            </div>
+            <div class="stat-card bg-white rounded-xl shadow p-6 border border-gray-200">
+                <h3 class="text-sm font-medium text-gray-500">CO₂ Terkini</h3>
+                <p class="text-3xl font-bold text-gray-900 mt-2" id="currentAir">- ppm</p>
+            </div>
+            <div class="stat-card bg-white rounded-xl shadow p-6 border border-gray-200">
+                <h3 class="text-sm font-medium text-gray-500">Suara Terkini</h3>
+                <p class="text-3xl font-bold text-gray-900 mt-2" id="currentSound">- dB</p>
+            </div>
+        </div>
+        <!-- Kartu Analisis ML -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            <div class="chart-card bg-white rounded-xl shadow p-6 border border-gray-200">
+                <h2 class="text-lg font-semibold text-gray-900 mb-6">Analisis ML - Keseluruhan Data</h2>
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="text-sm font-medium text-gray-500">Probabilitas Kehadiran Nyamuk</h3><span class="text-sm font-medium text-gray-900" id="overallMlProbabilityText">- %</span></div>
+                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                        <div class="bg-purple-600 h-2.5 rounded-full" id="overallMlProbability" style="width: 0%"></div>
+                    </div>
+                    <div class="mt-6">
+                        <h3 class="text-sm font-medium text-gray-500 mb-2">Tingkat Risiko</h3>
+                        <p id="overallRiskLevel" class="text-lg font-semibold">-</p>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-card bg-white rounded-xl shadow p-6 border border-gray-200">
+                <h2 class="text-lg font-semibold text-gray-900 mb-6">Analisis ML - Hari Ini</h2>
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <h3 class="text-sm font-medium text-gray-500">Probabilitas Kehadiran Nyamuk</h3><span class="text-sm font-medium text-gray-900" id="todayMlProbabilityText">- %</span></div>
+                    <div class="w-full bg-gray-200 rounded-full h-2.5">
+                        <div class="bg-indigo-600 h-2.5 rounded-full" id="todayMlProbability" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Grid Grafik -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+            <div class="chart-card bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+                <h2 class="text-lg font-semibold text-gray-900">Tren Deteksi 24 Jam Terakhir</h2>
+                <div class="chart-container"><canvas id="trendChart"></canvas></div>
+            </div>
+            <div class="chart-card bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+                <h2 class="text-lg font-semibold text-gray-900">Suhu & Kelembapan</h2>
+                <div class="chart-container"><canvas id="envChart"></canvas></div>
+            </div>
+            <div class="chart-card bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+                <h2 class="text-lg font-semibold text-gray-900">Kualitas Udara (CO₂)</h2>
+                <div class="chart-container"><canvas id="airChart"></canvas></div>
+            </div>
+            <div class="chart-card bg-white rounded-xl shadow-sm p-6 border border-gray-200">
+                <h2 class="text-lg font-semibold text-gray-900">Level Suara</h2>
+                <div class="chart-container"><canvas id="soundChart"></canvas></div>
+            </div>
+        </div>
+        <!-- Tabel Data Terbaru -->
+        <div class="bg-white rounded-xl shadow border border-gray-200">
+            <h2 class="text-lg font-semibold text-gray-900 p-6">Data Deteksi Terbaru</h2>
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Waktu</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Level Suara</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Suhu</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Kelembapan</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">CO₂</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200" id="dataTable"></tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Tautan ke file JavaScript Anda -->
+    <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+/* css/styles.css */
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f8fafc;
+}
+
+.chart-container {
+    position: relative;
+    height: 300px;
+    width: 100%;
+}
+
+.stat-card,
+.chart-card {
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover,
+.chart-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.header-image {
+    background-image: url('https://images.unsplash.com/photo-1584017911766-d451b3d0e843?auto=format&fit=crop&q=80');
+    background-size: cover;
+    background-position: center;
+}

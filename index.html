@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Deteksi Nyamuk - Smart Mosquito Detection</title>
+
+    <!-- Link ke Favicon, pastikan path ini benar sesuai struktur folder Anda -->
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='assets/favicon.svg') }}">
+
+    <!-- Tailwind CSS dari CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Ini adalah bagian penting yang mungkin hilang sebelumnya -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .hero-image {
+            /* Menambahkan gradient gelap agar tulisan putih lebih terbaca */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1584017911766-d451b3d0e843?auto=format&fit=crop&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .feature-card {
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+
+    <!-- Hero Section -->
+    <div class="hero-image min-h-screen flex items-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">
+                    Smart Mosquito Detection
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto">
+                    Sistem monitoring dan deteksi nyamuk berbasis machine learning untuk pencegahan penyakit yang lebih efektif
+                </p>
+                <!-- 
+                  INI BAGIAN TOMBOLNYA
+                  Class Tailwind CSS di bawah ini membuat link <a> terlihat seperti tombol kotak.
+                  href="/dashboard" akan mengarahkan ke halaman dashboard Anda melalui server Flask.
+                -->
+                <a href="/dashboard" class="inline-block px-8 py-4 border border-transparent text-lg font-medium rounded-md text-gray-900 bg-white hover:bg-gray-200 transition duration-300 ease-in-out shadow-lg">
+                    Lihat Dashboard
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <section class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Fitur Utama</h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                    Teknologi canggih untuk monitoring dan pencegahan penyakit yang ditularkan nyamuk.
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="feature-card bg-white p-8 rounded-xl shadow-sm border border-gray-100">
+                    <img src="https://images.unsplash.com/photo-1584017911766-d451b3d0e843?auto=format&fit=crop&q=80&w=400&h=300" alt="Foto deteksi" class="w-full h-48 object-cover rounded-lg mb-6">
+                    <div class="text-xl font-semibold text-gray-900 mb-2">Deteksi Real-time</div>
+                    <p class="text-gray-600">
+                        Monitoring keberadaan nyamuk secara real-time dengan sensor canggih dan teknologi AI.
+                    </p>
+                </div>
+                <div class="feature-card bg-white p-8 rounded-xl shadow-sm border border-gray-100">
+                    <img src="https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&q=80&w=400&h=300" alt="Foto lingkungan" class="w-full h-48 object-cover rounded-lg mb-6">
+                    <div class="text-xl font-semibold text-gray-900 mb-2">Analisis Lingkungan</div>
+                    <p class="text-gray-600">
+                        Pengukuran suhu, kelembaban, dan faktor lingkungan lain yang mempengaruhi aktivitas nyamuk.
+                    </p>
+                </div>
+                <div class="feature-card bg-white p-8 rounded-xl shadow-sm border border-gray-100">
+                    <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&q=80&w=400&h=300" alt="Foto AI" class="w-full h-48 object-cover rounded-lg mb-6">
+                    <div class="text-xl font-semibold text-gray-900 mb-2">Prediksi AI</div>
+                    <p class="text-gray-600">
+                        Prediksi risiko menggunakan machine learning berdasarkan data historis dan kondisi lingkungan.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- (Sisa dari konten halaman Anda tetap sama) -->
+
+    <!-- CTA Section -->
+    <section class="gradient-bg py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold text-white mb-8">
+                Mulai Monitoring Sekarang
+            </h2>
+            <p class="text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
+                Akses dashboard untuk melihat data real-time dan analisis prediktif.
+            </p>
+            <a href="/dashboard" class="inline-block px-8 py-4 border border-transparent text-lg font-medium rounded-md text-gray-900 bg-white hover:bg-gray-200 transition duration-300 ease-in-out shadow-lg">
+                Buka Dashboard
+            </a>
+        </div>
+    </section>
+    <!-- Letakkan ini setelah bagian "Fitur Utama" -->
+    <section class="py-20 bg-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Bagaimana Sistem Bekerja</h2>
+                <p class="text-xl text-gray-600">Alur kerja dari sensor hingga hasil analisis di dashboard Anda.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <!-- Langkah 1: Pengumpulan Data -->
+                <div class="p-8">
+                    <div class="flex items-center justify-center h-20 w-20 rounded-full bg-indigo-500 text-white mx-auto mb-6">
+                        <!-- Gunakan ikon SVG -->
+                        <svg class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">1. Sensor Bekerja</h3>
+                    <p class="text-gray-600">Sensor suara, suhu, kelembapan, dan CO₂ mengumpulkan data dari lingkungan secara real-time.</p>
+                </div>
+                <!-- Langkah 2: Analisis AI -->
+                <div class="p-8">
+                    <div class="flex items-center justify-center h-20 w-20 rounded-full bg-indigo-500 text-white mx-auto mb-6">
+                        <svg class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M12 6V3m0 18v-3" /></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">2. Analisis AI</h3>
+                    <p class="text-gray-600">Data dikirim ke server dan dianalisis oleh model Machine Learning untuk memprediksi keberadaan nyamuk.</p>
+                </div>
+                <!-- Langkah 3: Visualisasi Dashboard -->
+                <div class="p-8">
+                    <div class="flex items-center justify-center h-20 w-20 rounded-full bg-indigo-500 text-white mx-auto mb-6">
+                        <svg class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">3. Visualisasi Dashboard</h3>
+                    <p class="text-gray-600">Hasil analisis, tingkat risiko, dan tren ditampilkan secara visual di dashboard interaktif Anda.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <p class="text-sm">© 2025 Smart Mosquito Detection. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
